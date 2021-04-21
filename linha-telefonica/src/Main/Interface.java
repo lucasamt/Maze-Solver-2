@@ -5,6 +5,8 @@ import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.SwingWorker;
 import javax.swing.text.Document;
+import javax.swing.JFileChooser;
+import java.io.File;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -15,20 +17,6 @@ import javax.swing.text.Document;
  *
  * @author RGrupos
  */
-public class Interface extends javax.swing.JFrame {
-    private DefaultListModel orderedList = new DefaultListModel();
-    private List stack;
-    private List orderedStack;
-    /**
-     * Creates new form Interface
-     */
-    public Interface() throws Exception {
-        initComponents();
-
-        stack = new List<Phone>();
-        orderedStack = new List<Phone>();
-    }
-
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -41,9 +29,10 @@ public class Interface extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jList1 = new javax.swing.JList<>();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenu2 = new javax.swing.JMenu();
+        jMenu3 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -52,55 +41,35 @@ public class Interface extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(jList1);
 
-        jButton1.setText("Receber Ligações");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jButton2.setText("Atender");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-
-        jButton3.setText("Atualizar");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(31, 31, 31))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 522, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(77, 77, 77)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1))
-                .addContainerGap())
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 312, Short.MAX_VALUE)
         );
+
+        jMenu1.setText("File");
+        jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMenu1MouseClicked(evt);
+            }
+        });
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("Edit");
+        jMenuBar1.add(jMenu2);
+
+        jMenu3.setText("Solve");
+        jMenuBar1.add(jMenu3);
+        jMenu3.getAccessibleContext().setAccessibleName("Solve");
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -115,38 +84,16 @@ public class Interface extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-        Simulator s = new Simulator();
-        s.makeRandomPhoneCalls(this.getStack());
-        
-        try {
-            organizeElements();
-            displayOrder();
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
+    // File
+    private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+        int result = fileChooser.showOpenDialog(this);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            System.out.println("Selected file: " + selectedFile.getAbsolutePath());
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        try {
-            organizeElements();
-            displayOrder();
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        try {
-            orderedStack.pop();
-            organizeElements();
-            displayOrder();
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jMenu1MouseClicked
 
     /**
      * @param args the command line arguments
@@ -185,76 +132,15 @@ public class Interface extends javax.swing.JFrame {
             }
         });
     }
-    
-    public void organizeElements() throws Exception{
-        List auxStack = new List<Phone>();
-        while(!orderedStack.isEmpty()){
-            auxStack.push(orderedStack.pop());
-        }
-        while(!stack.isEmpty()){
-            auxStack.push(stack.pop());
-        }
-        Phone cheaper = null;
-        int index = 0;
-        while(!auxStack.isEmpty()){
-            List aux2Stack = new List<Phone>();
-            if(index == 0){
-                cheaper = (Phone)auxStack.pop();
-                if(auxStack.isEmpty())
-                    orderedStack.push(cheaper);
-                index++;
-            }else{
-                while(!auxStack.isEmpty()){
-                    Phone p = (Phone)auxStack.pop();
-                    double auxCost = Math.round(p.getCost() * 100);
-                    double cheaperCost = Math.round(cheaper.getCost() * 100);
-                    if(cheaperCost - auxCost > 0){
-                        aux2Stack.push(cheaper);
-                        cheaper = p;
-                    }else{
-                        aux2Stack.push(p);
-                    }
-                }
-                auxStack = aux2Stack;
-                index = 0;
-                orderedStack.push(cheaper);
-            }
-        }
-        orderedStack.display();
-        
-    }
-    
-    public void displayOrder() throws Exception{
-        orderedList.clear();
-        try{
-            List auxStack = new List<Phone>();
-            while(!orderedStack.isEmpty()){
-                Phone p = (Phone)orderedStack.pop();
-                auxStack.push(p);
-                Double cost = p.getCost();
-                Integer convert = (int) Math.round(cost * 100);
-                cost = Double.parseDouble(convert.toString())/100;
-                orderedList.addElement(p.getFormatedPhone()+" | Custo "+cost.toString());
-            }
-            this.jList1.setModel(orderedList);
-            while(!auxStack.isEmpty()){
-                orderedStack.push(auxStack.pop());
-            }
-        }catch(Exception ex){
-            System.err.println(ex);
-        }
-    }
-    
-    public List getStack(){
-        return stack;
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JList<String> jList1;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }
+
