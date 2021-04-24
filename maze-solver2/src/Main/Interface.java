@@ -6,16 +6,19 @@
 package Main;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author Usuario
  */
 public class Interface extends javax.swing.JFrame {
-
+    private String filePath = null;
     /**
      * Creates new form Interface
      */
@@ -36,6 +39,8 @@ public class Interface extends javax.swing.JFrame {
         jTextArea1 = new javax.swing.JTextArea();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenu3 = new javax.swing.JMenu();
         jMenu4 = new javax.swing.JMenu();
@@ -47,15 +52,36 @@ public class Interface extends javax.swing.JFrame {
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
 
+        jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Main/icones/application_form_magnify.png"))); // NOI18N
         jMenu1.setText("File");
         jMenu1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenu1MouseClicked(evt);
             }
         });
+
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        jMenuItem1.setText("Novo Arquivo");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem1);
+
+        jMenuItem2.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        jMenuItem2.setText("Abrir Arquivo");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem2);
+
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Edit");
+        jMenu2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Main/icones/disk.png"))); // NOI18N
+        jMenu2.setText("Save");
         jMenu2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jMenu2MouseClicked(evt);
@@ -63,9 +89,11 @@ public class Interface extends javax.swing.JFrame {
         });
         jMenuBar1.add(jMenu2);
 
+        jMenu3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Main/icones/accept.png"))); // NOI18N
         jMenu3.setText("Solve");
         jMenuBar1.add(jMenu3);
 
+        jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Main/icones/control_play.png"))); // NOI18N
         jMenu4.setText("X");
         jMenu4.setEnabled(false);
         jMenu4.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -92,20 +120,7 @@ public class Interface extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
-        int result = fileChooser.showOpenDialog(this);
-           if (result == JFileChooser.APPROVE_OPTION) {
-                File selectedFile = fileChooser.getSelectedFile();
-                System.out.println("Selected file: " + selectedFile.getAbsolutePath());
-                jTextArea1.setText(selectedFile.getAbsolutePath());
-            try {
-                fileChooser file = new fileChooser(selectedFile.getAbsolutePath());
-                jTextArea1.setText(file.toString());
-            } catch (Exception ex) {
-            }
-                
-           }
+
     }//GEN-LAST:event_jMenu1MouseClicked
 
     private void jMenu4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu4MouseClicked
@@ -113,8 +128,34 @@ public class Interface extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenu4MouseClicked
 
     private void jMenu2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu2MouseClicked
-        jMenu4.setText("Linha: ");             
+        saveFile();
     }//GEN-LAST:event_jMenu2MouseClicked
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        int answer;
+        answer = JOptionPane.showConfirmDialog(this, "O arquivo que você está editando será substituido. Deseja salvar?", "Salvar", JOptionPane.YES_NO_OPTION);
+        if(answer == JOptionPane.YES_OPTION){
+            saveFile();
+        }
+        jTextArea1.setText("");
+        filePath = null;
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        if(!jTextArea1.getText().equals("")){
+            int answer;
+            answer = JOptionPane.showConfirmDialog(this, "O arquivo que você está editando será substituido. Deseja salvar?", "Salvar", JOptionPane.YES_NO_OPTION);
+            if(answer == JOptionPane.YES_OPTION){
+                saveFile();
+            }
+        }
+        jTextArea1.setText("");
+        filePath = null;
+        
+        openFile();
+        
+        
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -150,6 +191,63 @@ public class Interface extends javax.swing.JFrame {
             }
         });
     }
+    
+    private void saveFile(){
+        
+        if(filePath != null){
+            writeFile(filePath);
+            return;
+        }
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")+"/Desktop"));
+        int result = fileChooser.showSaveDialog(this);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            String selectedFileName = selectedFile.getAbsolutePath();
+            System.out.println("Selected file: " + selectedFileName);
+            if (selectedFileName == null || selectedFileName.equals("")) {
+                JOptionPane.showMessageDialog(this, "Atenção: Coloque um nome válido", "Valores Inválidos", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            if (!selectedFileName.contains(".txt"))
+                selectedFileName += ".txt";
+            filePath = selectedFileName;
+            writeFile(selectedFileName);
+        }
+    }
+    
+    public void openFile(){
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")+"/Desktop"));
+        int result = fileChooser.showOpenDialog(this);
+        if (result == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+            filePath = selectedFile.getAbsolutePath();
+            jTextArea1.setText(selectedFile.getAbsolutePath());
+             try {
+                fileChooser file = new fileChooser(selectedFile.getAbsolutePath());
+                jTextArea1.setText(file.toString());
+            } catch (Exception ex) {
+            }
+                
+        }
+    }
+    
+    public void writeFile(String name){    
+        try {
+           FileWriter arquivo;
+           arquivo = new FileWriter(new File(name));
+           arquivo.write(jTextArea1.getText());
+           arquivo.close();
+
+           JOptionPane.showMessageDialog(this, "Salvo", "Arquivo salvo com sucesso", JOptionPane.INFORMATION_MESSAGE);
+
+       } catch (IOException ex) {
+           JOptionPane.showMessageDialog(this, "Erro: " + ex.toString(), "Erro na gravação do arquivo",
+                   JOptionPane.ERROR_MESSAGE);
+       }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
@@ -157,6 +255,8 @@ public class Interface extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu4;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
