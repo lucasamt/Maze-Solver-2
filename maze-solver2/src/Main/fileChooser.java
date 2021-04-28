@@ -38,6 +38,16 @@ public class fileChooser {
 		return FileContent;
 	}
         
+        public int getMazeNum() throws Exception{
+            int val = 0;
+            try{
+                val = Integer.parseInt(FileContent.getTop(0));
+            }catch(Exception ex){
+                val = FileContent.getTopIndex();
+            }
+            return val;
+        }
+        
         @Override
         public String toString() {
                 stack auxiliar = new stack();
@@ -49,13 +59,18 @@ public class fileChooser {
                     catch (Exception ex) {
                     }
                 }
+                int first = 1;
                 while(!auxiliar.isEmpty())
                 {
                     String aux;
                     try {
                         aux = (String) auxiliar.pop();
-                        FileContent.push(aux);
-                        allText += aux + "\n";
+                        if(first != 1){
+                            FileContent.push(aux);
+                            if(!auxiliar.isEmpty()) allText += aux + "\n";   
+                        }else{
+                            first = 0;
+                        }
                     } catch (Exception ex) {
                     }
                 }

@@ -50,6 +50,11 @@ public class Interface extends javax.swing.JFrame {
         jTextArea1.setColumns(20);
         jTextArea1.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
         jTextArea1.setRows(5);
+        jTextArea1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextArea1KeyPressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTextArea1);
 
         jMenu1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Main/icones/application_form_magnify.png"))); // NOI18N
@@ -94,7 +99,6 @@ public class Interface extends javax.swing.JFrame {
         jMenuBar1.add(jMenu3);
 
         jMenu4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Main/icones/control_play.png"))); // NOI18N
-        jMenu4.setText("X");
         jMenu4.setEnabled(false);
         jMenu4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -102,6 +106,7 @@ public class Interface extends javax.swing.JFrame {
             }
         });
         jMenuBar1.add(jMenu4);
+        jMenu4.getAccessibleContext().setAccessibleName("jMenu4");
 
         setJMenuBar(jMenuBar1);
 
@@ -109,7 +114,7 @@ public class Interface extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 501, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -156,6 +161,13 @@ public class Interface extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jTextArea1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea1KeyPressed
+        Integer keyCode = evt.getKeyCode();
+        if(!keyCode.equals(51) && keyCode.equals(32) && keyCode.equals(8)){
+            evt.consume();
+        }
+    }//GEN-LAST:event_jTextArea1KeyPressed
 
     /**
      * @param args the command line arguments
@@ -222,12 +234,13 @@ public class Interface extends javax.swing.JFrame {
         int result = fileChooser.showOpenDialog(this);
         if (result == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();
-            System.out.println("Selected file: " + selectedFile.getAbsolutePath());
+            // System.out.println("Selected file: " + selectedFile.getAbsolutePath());
             filePath = selectedFile.getAbsolutePath();
             jTextArea1.setText(selectedFile.getAbsolutePath());
              try {
                 fileChooser file = new fileChooser(selectedFile.getAbsolutePath());
                 jTextArea1.setText(file.toString());
+                jMenu4.setText("Linhas: "+ file.getMazeNum());
             } catch (Exception ex) {
             }
                 
@@ -238,7 +251,8 @@ public class Interface extends javax.swing.JFrame {
         try {
            FileWriter arquivo;
            arquivo = new FileWriter(new File(name));
-           arquivo.write(jTextArea1.getText());
+           
+           arquivo.write(jTextArea1.getText().split("\n").length + "\n" +jTextArea1.getText());
            arquivo.close();
 
            JOptionPane.showMessageDialog(this, "Salvo", "Arquivo salvo com sucesso", JOptionPane.INFORMATION_MESSAGE);
