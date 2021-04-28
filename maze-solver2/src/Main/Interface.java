@@ -51,6 +51,9 @@ public class Interface extends javax.swing.JFrame {
         jTextArea1.setFont(new java.awt.Font("Courier New", 0, 18)); // NOI18N
         jTextArea1.setRows(5);
         jTextArea1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                jTextArea1KeyTyped(evt);
+            }
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 jTextArea1KeyPressed(evt);
             }
@@ -163,11 +166,15 @@ public class Interface extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jTextArea1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea1KeyPressed
-        Integer keyCode = evt.getKeyCode();
-        if(!keyCode.equals(51) && keyCode.equals(32) && keyCode.equals(8)){
+
+    }//GEN-LAST:event_jTextArea1KeyPressed
+
+    private void jTextArea1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea1KeyTyped
+        Character typed = evt.getKeyChar();
+        if(typed != '#' && typed != ' ' && typed != 'E' && typed != 'S'){
             evt.consume();
         }
-    }//GEN-LAST:event_jTextArea1KeyPressed
+    }//GEN-LAST:event_jTextArea1KeyTyped
 
     /**
      * @param args the command line arguments
