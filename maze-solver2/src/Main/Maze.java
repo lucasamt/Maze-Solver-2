@@ -17,15 +17,16 @@ public class Maze {
 		int numberLines; 
 		int numberColumns;
 		try {
+                        System.out.println(File.getTop(0));
 			numberLines = Integer.parseInt(File.getTop(0));
 			numberColumns = File.getTop().length()+1;
 		}
 		catch(Exception error){ 
-			throw new IllegalArgumentException("Invalid Maze");
+			throw new IllegalArgumentException(error);
 		}
 		
 		if (numberLines <= 0) 
-			throw new IllegalArgumentException("Invalid Maze");
+			throw new IllegalArgumentException("Invalid Maze 2");
 	
 		mazeMap = new String[numberLines+1][numberColumns+1];
 		Boolean hasEntry = false;

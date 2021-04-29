@@ -154,18 +154,20 @@ public class Person {
 		return this.winner;
 	}
 	
-	public void writeSolution() {
+	public String writeSolution() {
 		this.maze = maze;
 		String[][] mazeMap = maze.getMazeMap();
+                String print = "";
 		
 		// He tries to find `E`, to know where he is
 		boolean foundEntry = false;
 		outerloop: // Sair do loop inteiro
 		for(int intLine = 0; intLine < mazeMap.length-1; intLine++) {
 			for(int intColumn = 0; intColumn < mazeMap[intLine].length; intColumn++) {
-				System.out.print(mazeMap[intLine][intColumn]);
+				print += mazeMap[intLine][intColumn];
 			}
-			System.out.print("\n");
+			print += "\n";
 		}
+                return print;
 	}
 }

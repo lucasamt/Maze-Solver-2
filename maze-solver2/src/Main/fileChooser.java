@@ -38,7 +38,7 @@ public class fileChooser {
 		return FileContent;
 	}
         
-        public int getMazeNum() throws Exception{
+        public Integer getMazeNum() throws Exception{
             int val = 0;
             try{
                 val = Integer.parseInt(FileContent.getTop(0));
@@ -67,7 +67,7 @@ public class fileChooser {
                         aux = (String) auxiliar.pop();
                         if(first != 1){
                             FileContent.push(aux);
-                            if(!auxiliar.isEmpty()) allText += aux + "\n";   
+                            allText += aux + "\n";   
                         }else{
                             first = 0;
                         }
