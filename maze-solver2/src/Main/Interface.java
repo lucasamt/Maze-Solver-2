@@ -12,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import Shared.*;
 
 /**
  *
@@ -20,6 +21,7 @@ import javax.swing.JOptionPane;
 public class Interface extends javax.swing.JFrame {
 
     private String filePath = null;
+    private String serverFilePath = null;
     private String clientID = "";
     private fileChooser fileC = null;
     private boolean solved = false;
@@ -31,6 +33,17 @@ public class Interface extends javax.swing.JFrame {
         initComponents();
         clientID = GetNetworkAddress.GetAddress("ip");
         System.out.println("IP: "+clientID);
+    }
+    
+    public Interface(String fileName, String file) {
+        initComponents();
+        clientID = GetNetworkAddress.GetAddress("ip");
+        System.out.println("IP: "+clientID);
+        file = file.replaceAll("[0-9]+\n", "");
+        jTextArea1.setText(file);
+        this.serverFilePath = fileName;
+        
+        jMenu4.setText("Linhas: " + jTextArea1.getText().split("\n").length);
     }
 
     /**
@@ -114,7 +127,7 @@ public class Interface extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem4);
 
-        jMenuItem5.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        jMenuItem5.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jMenuItem5.setText("Open Remote File");
         jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -194,6 +207,7 @@ public class Interface extends javax.swing.JFrame {
         }
         jTextArea1.setText("");
         filePath = null;
+        this.serverFilePath = null;
         solved = false;
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
@@ -207,6 +221,7 @@ public class Interface extends javax.swing.JFrame {
         }
         jTextArea1.setText("");
         filePath = null;
+        this.serverFilePath = null;
 
         openFile();
         solved = false;
@@ -269,11 +284,20 @@ public class Interface extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        // TODO add your handling code here:
+        if(this.serverFilePath == null){
+            do{
+                this.serverFilePath = JOptionPane.showInputDialog("Digite o nome do Arquivo: ");
+                System.out.println("File: "+filePath);
+            }while(this.serverFilePath == null);
+        }
+        saveFileRemote();
+
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
-        // TODO add your handling code here:
+        this.setVisible(false);
+        FilesListInterface listLab = new FilesListInterface();
+        listLab.setVisible(true);
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     /**
@@ -337,6 +361,13 @@ public class Interface extends javax.swing.JFrame {
             filePath = selectedFileName;
             writeFile(selectedFileName);
         }
+        if(this.serverFilePath != null){
+            int answer;
+            answer = JOptionPane.showConfirmDialog(this, "Você deseja também salvar o arquivo remotamente?", "Salvar", JOptionPane.YES_NO_OPTION);
+            if (answer == JOptionPane.YES_OPTION) {
+                saveFileRemote();
+            }
+        }
     }
 
     public void openFile() {
@@ -371,6 +402,27 @@ public class Interface extends javax.swing.JFrame {
         } catch (IOException ex) {
             JOptionPane.showMessageDialog(this, "Erro: " + ex.toString(), "Erro na gravação do arquivo",
                     JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    public void saveFileRemote(){
+        // Pegar arquivo
+        String textoDoArquivo = jTextArea1.getText().split("\n").length + "\n" + jTextArea1.getText();
+        // Nome do arquivo
+        String nomeDoArquivo = this.serverFilePath;
+        // Ip do usuário
+        String IPdoUsuario = clientID;
+        // Qual é a operação?
+        Integer operacao = 100;
+        // Enviar o arquivo para o servidor
+
+        Labirinto lab = new Labirinto(nomeDoArquivo, textoDoArquivo);
+        PedidoSalvamento salvar = new PedidoSalvamento(IPdoUsuario, lab);
+        try {
+            salvar.enviarDado();
+        } catch (IOException ex) {
+            System.err.println("Not connected");
+            System.err.println(ex.getMessage());
         }
     }
 
