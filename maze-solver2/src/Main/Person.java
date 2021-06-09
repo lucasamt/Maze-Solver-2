@@ -5,6 +5,8 @@
  */
 package Main;
 
+import java.util.Objects;
+
 /**
  * Classe que declara o labirinto, as coordenadas da pilha que a pessoa
  * irá passar e verificar se ele não é um campeão.
@@ -225,4 +227,56 @@ public class Person {
 		}
                 return print;
 	}
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 67 * hash + Objects.hashCode(this.maze);
+        hash = 67 * hash + Objects.hashCode(this.coordinate);
+        hash = 67 * hash + Objects.hashCode(this.adjacent);
+        hash = 67 * hash + Objects.hashCode(this.chance);
+        hash = 67 * hash + Objects.hashCode(this.mentalMap);
+        hash = 67 * hash + (this.winner ? 1 : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Person other = (Person) obj;
+        if (this.winner != other.winner) {
+            return false;
+        }
+        if (!Objects.equals(this.maze, other.maze)) {
+            return false;
+        }
+        if (!Objects.equals(this.coordinate, other.coordinate)) {
+            return false;
+        }
+        if (!Objects.equals(this.adjacent, other.adjacent)) {
+            return false;
+        }
+        if (!Objects.equals(this.chance, other.chance)) {
+            return false;
+        }
+        if (!Objects.equals(this.mentalMap, other.mentalMap)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" + "maze=" + maze + ", coordinate=" + coordinate + ", adjacent=" + adjacent + ", chance=" + chance + ", mentalMap=" + mentalMap + ", winner=" + winner + '}';
+    }
+        
+        
 }

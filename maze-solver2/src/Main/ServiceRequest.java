@@ -8,6 +8,7 @@ package Main;
 import java.io.Serializable;
 import java.net.Socket;
 import java.io.*;
+import java.util.Objects;
 
 /**
  *
@@ -57,4 +58,43 @@ public class ServiceRequest {
         return true;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 41 * hash + Objects.hashCode(this.source);
+        hash = 41 * hash + Objects.hashCode(this.requestFlag);
+        hash = 41 * hash + Objects.hashCode(this.data);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ServiceRequest other = (ServiceRequest) obj;
+        if (!Objects.equals(this.source, other.source)) {
+            return false;
+        }
+        if (!Objects.equals(this.data, other.data)) {
+            return false;
+        }
+        if (!Objects.equals(this.requestFlag, other.requestFlag)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "ServiceRequest{" + "source=" + source + ", requestFlag=" + requestFlag + ", data=" + data + '}';
+    }
+
+    
 }

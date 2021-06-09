@@ -11,6 +11,7 @@ import java.io.OutputStream;
 import java.io.Serializable;
 import java.net.Socket;
 import Main.*;
+import java.util.Objects;
 
 /**
  *
@@ -50,4 +51,35 @@ public class PedidoSalvamento extends Comunicado implements Serializable{
         objectOutputStream.writeObject(dataToSend);
         socket.close();
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 67 * hash + Objects.hashCode(this.idCliente);
+        hash = 67 * hash + Objects.hashCode(this.labirinto);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final PedidoSalvamento other = (PedidoSalvamento) obj;
+        if (!Objects.equals(this.idCliente, other.idCliente)) {
+            return false;
+        }
+        if (!Objects.equals(this.labirinto, other.labirinto)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

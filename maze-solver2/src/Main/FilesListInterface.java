@@ -7,6 +7,7 @@ package Main;
 
 import Shared.*;
 import java.io.IOException;
+import java.util.Objects;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -185,6 +186,54 @@ public class FilesListInterface extends javax.swing.JFrame {
             }
         });
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 47 * hash + Objects.hashCode(this.jMenu1);
+        hash = 47 * hash + Objects.hashCode(this.jMenuBar1);
+        hash = 47 * hash + Objects.hashCode(this.jPanel1);
+        hash = 47 * hash + Objects.hashCode(this.jScrollPane1);
+        hash = 47 * hash + Objects.hashCode(this.jTable1);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final FilesListInterface other = (FilesListInterface) obj;
+        if (!Objects.equals(this.jMenu1, other.jMenu1)) {
+            return false;
+        }
+        if (!Objects.equals(this.jMenuBar1, other.jMenuBar1)) {
+            return false;
+        }
+        if (!Objects.equals(this.jPanel1, other.jPanel1)) {
+            return false;
+        }
+        if (!Objects.equals(this.jScrollPane1, other.jScrollPane1)) {
+            return false;
+        }
+        if (!Objects.equals(this.jTable1, other.jTable1)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "FilesListInterface{" + "jMenu1=" + jMenu1 + ", jMenuBar1=" + jMenuBar1 + ", jPanel1=" + jPanel1 + ", jScrollPane1=" + jScrollPane1 + ", jTable1=" + jTable1 + '}';
+    }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
