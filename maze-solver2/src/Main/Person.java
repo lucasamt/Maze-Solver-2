@@ -6,9 +6,16 @@
 package Main;
 
 /**
- *
- * @author Usuario
+ * Classe que declara o labirinto, as coordenadas da pilha que a pessoa
+ * irá passar e verificar se ele não é um campeão.
+ * Nesta classe encontramos os métodos progressivos e regressivos,
+ * procura o 'E' para ver onde está e o 'S' para encontrar a saída do labirinto.
+ * Além de definir as posições pelas quais Bob passa. 
+ * Escreve e apaga a "trilha" deixadas por Bob.
+ * 
+ * @param winner  Parametro que define Bob como campeão
  */
+
 public class Person {
     private Maze maze;
 	private Coordinates coordinate;
@@ -23,7 +30,14 @@ public class Person {
 		this.mentalMap = new stack<Coordinates>(3);
 		String[][] mazeMap = maze.getMazeMap();
 		
-		// He tries to find `E`, to know where he is
+/**
+ * Tenta encontrar `E`, para se localizar no Labirinto
+ * 
+ * @param foundEntry    Procura o E- Entrada do Labirinto.
+ * @param intLine       Define o tamanho das linhas do labirinto para localizar.
+ * @param intColumn 	Define o tamanho das colunas do labirinto para localizar.
+ * @return		void
+ */
 		boolean foundEntry = false;
 		outerloop: // Sair do loop inteiro
 		for(int intLine = 0; intLine < mazeMap.length-1; intLine++) {
@@ -39,7 +53,12 @@ public class Person {
 		if(!foundEntry)
 			throw new IllegalArgumentException("Sorry, I could'nt find the entry");
 	}
-	
+        
+/**
+ * @param  think   Faz "Bob" pensar qual caminho deve seguir.       
+ * @param  me 	   Declara as posições que Bob deve andar no labirinto.
+ * @return true	   Retorna verdadeiro se o lado adjacente estiver vazio.	
+ */	
 	public Boolean think() throws Exception {
 		this.adjacent = new stack<Coordinates>(3);
 		
@@ -67,6 +86,13 @@ public class Person {
 		}
 	}
 	
+/**
+ * Aqui temos o método progressivo
+ * 
+ * @param  keepForward   Faz Bob andar para frente pelo labirinto até encontrar a saída.       	
+ * @return               void		
+ */
+        
 	private void keepForward() throws Exception {
 		trackInMap();
 		walk(this.adjacent.getTop());
@@ -74,7 +100,13 @@ public class Person {
 		this.chance.push(adjacent);
 		
 	}
-	
+        
+/**    
+ * Aqui temos o método regressivo
+ * 
+ * @param  goBack   Faz Bob retornar pelo caminho que ele andou ao chegar em um beco sem saida. 
+ * @return          void		
+ */	
 	private void goBack() throws Exception {
 		this.mentalMap.pop();
 		while(!this.chance.isEmpty()) {
@@ -94,6 +126,18 @@ public class Person {
 		}
 	}
 	
+/**   
+ * Aqui temos o método que apaga os "rastros" deixados por bob enquanto caminha.
+ * O que ajuda ele a ficar no caminho certo para chegar à saída.
+ * 
+ * @param  eraseMap     Apaga os "rastros" deixados por Bob. 
+ * @param  trackInMap   Deixa apenas a trilha que vai até a saída do labirinto.
+ * @param  look         Verifica as posições que Bob pode andar e faz ele seguir em frente apenas se ele estiver a caminho de 'S'.
+ * @param  x		Define a aparência das linhas do labirinto, a partir das posições que bob tem que andar.
+ * @param  y		Define a aparência das colunas do labirinto, a partir das posições que bob tem que andar.
+ * @return              void		
+ */
+        
 	private void eraseMap() {
 		this.maze.eraseFootPrint(this.coordinate);
 	}
@@ -142,6 +186,12 @@ public class Person {
 		return;
 	}
 	
+/**     
+ * @param  walk         Define as coordenadas para Bob caminhar no labirinto. 
+ * @param  isTheWinner  Declara Bob como o novo campeão quando ele chega na Saida.
+ * @return              void		
+ */
+        
 	public void walk(Coordinates coordinate) {
 		this.coordinate = coordinate;
 	}
@@ -159,7 +209,12 @@ public class Person {
 		String[][] mazeMap = maze.getMazeMap();
                 String print = "";
 		
-		// He tries to find `E`, to know where he is
+/**  
+ * 
+ * Procura 'E' para saber onde esta. 
+ * 
+ * @return  Retorna com o resultado de tudo printado na tela	
+ */
 		boolean foundEntry = false;
 		outerloop: // Sair do loop inteiro
 		for(int intLine = 0; intLine < mazeMap.length-1; intLine++) {

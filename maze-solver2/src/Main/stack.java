@@ -6,9 +6,24 @@
 package Main;
 
 /**
+ * Classe que armazena qualquer tipo de pilha devido ao método Stack <Type>;
+ * Ele também define um construtor padrão para uma pilha de qualquer tamanho e com o topo sempre sendo -1;
+ * A pilha deve ser maior que zero, com os métodos push (Adicionar um item da pilha), pop (remover um item da pilha) 
+ * e top (Retorna o topo da pilha), verifica se a pilha está vazia e finalmente redimensiona a pilha que causa isso 
+ * aumenta de tamanho de acordo com a necessidade do usuário.
  *
- * @author Usuario
+ * @param   top                 Declara uma variável privada de todo o tipo que deve ser sempre a parte superior;
+ * @param   size		Demonstra o tamanho da pilha;
+ * @param   value		Demonstra os valores que estão na pilha;
+ * @param   factor		Demonstra o valor máximo a ser alocado na pilha;
+ * @param   getTopIndex		Leia o topo da pilha e volte ao índice;
+ * @return  value 		Retorna os valores que estão na pilha;
+ * @return  top == -1           Returns whether the stack is empty or not, after checking if the top is -1;
+ * @return  elements[top]	Returns the element at the top of the stack;
+ * @return  elements[value]	Returns the elements at the values of the stack;
+ * @return  top                 Returns the top of the stack after it has been resized;
  */
+
 public class stack<type> {
     private Object elements[];
 	private int top;

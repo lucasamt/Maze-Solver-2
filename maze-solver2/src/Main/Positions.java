@@ -6,9 +6,12 @@
 package Main;
 
 /**
+ * Classe que mostra todas as posições que "Bob" pode percorrer no labirinto
  *
- * @author Usuario
+ * @param Positions   Declara as posições percorridas no labirinto 
+ * @return            void 
  */
+
 public enum Positions {
         TOP,
 	BOTTOM,

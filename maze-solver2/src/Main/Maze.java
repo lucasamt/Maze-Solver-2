@@ -9,9 +9,22 @@ package Main;
  *
  * @author Usuario
  */
+
 public class Maze {
     public String[][] mazeMap;
-	
+    
+
+/**
+ * Método que define o número de linhas e colunas no labirinto,
+ * e que pode ser retornado em um labirinto inválido ou inexistente.
+ * 
+ * @param numberLines       Define o número de linhas no labirinto.
+ * @param numberColumns	    Define o número de colunas no labirinto.
+ * @param lines             Define as linhas do labirinto que devem ser = 0 e ++.
+ * @param hasEntry          Diz se tem entrada ou nao para Bob andar.
+ * @param hasExit           Diz se tem saida ou nao para Bob andar.
+ * @return		    void
+ */	
 	
 	public Maze(stack<String> File) throws Exception {
 		int numberLines; 
