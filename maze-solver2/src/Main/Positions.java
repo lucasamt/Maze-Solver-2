@@ -14,4 +14,5 @@ public enum Positions {
 	BOTTOM,
 	LEFT,
 	RIGHT
+          
 }

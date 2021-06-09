@@ -122,4 +122,10 @@ public class GetNetworkAddress {
 
         return false;
     }
+
+    @Override
+    public String toString() {
+        return "GetNetworkAddress{" + '}';
+    }
+  
 }

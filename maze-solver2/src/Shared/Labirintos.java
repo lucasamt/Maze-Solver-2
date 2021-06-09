@@ -7,6 +7,7 @@ package Shared;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  *
@@ -31,4 +32,35 @@ public class Labirintos implements Serializable, Cloneable{
     public Labirinto getLabirinto(int i) {
         return labirintos.get(i);
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 67 * hash + Objects.hashCode(this.labirintos);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Labirintos other = (Labirintos) obj;
+        if (!Objects.equals(this.labirintos, other.labirintos)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Labirintos{" + "labirintos=" + labirintos + '}';
+    }
+    
 }

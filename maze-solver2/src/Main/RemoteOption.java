@@ -13,8 +13,8 @@ import java.io.FileWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Objects;
 import javax.swing.JOptionPane;
-import sun.misc.IOUtils;
 
 /**
  *
@@ -158,6 +158,49 @@ public class RemoteOption extends javax.swing.JFrame {
         formInterface.setVisible(true);
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 53 * hash + Objects.hashCode(this.remoteHost);
+        hash = 53 * hash + Objects.hashCode(this.jButton1);
+        hash = 53 * hash + Objects.hashCode(this.jLabel1);
+        hash = 53 * hash + Objects.hashCode(this.jTextField1);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final RemoteOption other = (RemoteOption) obj;
+        if (!Objects.equals(this.remoteHost, other.remoteHost)) {
+            return false;
+        }
+        if (!Objects.equals(this.jButton1, other.jButton1)) {
+            return false;
+        }
+        if (!Objects.equals(this.jLabel1, other.jLabel1)) {
+            return false;
+        }
+        if (!Objects.equals(this.jTextField1, other.jTextField1)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "RemoteOption{" + "remoteHost=" + remoteHost + ", jButton1=" + jButton1 + ", jLabel1=" + jLabel1 + ", jTextField1=" + jTextField1 + '}';
+    }
+
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;

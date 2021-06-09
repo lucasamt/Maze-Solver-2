@@ -5,6 +5,8 @@
  */
 package Main;
 
+import java.util.Arrays;
+
 /**
  *
  * @author Usuario
@@ -97,5 +99,39 @@ public class stack<type> {
 	public int getTopIndex() {
 		return top;
 	}
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 97 * hash + Arrays.deepHashCode(this.elements);
+        hash = 97 * hash + this.top;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final stack<?> other = (stack<?>) obj;
+        if (this.top != other.top) {
+            return false;
+        }
+        if (!Arrays.deepEquals(this.elements, other.elements)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "stack{" + "elements=" + elements + ", top=" + top + '}';
+    }   
     
 }

@@ -13,6 +13,7 @@ import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import Shared.*;
+import java.util.Objects;
 
 /**
  *
@@ -425,6 +426,54 @@ public class Interface extends javax.swing.JFrame {
             System.err.println(ex.getMessage());
         }
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 53 * hash + Objects.hashCode(this.filePath);
+        hash = 53 * hash + Objects.hashCode(this.serverFilePath);
+        hash = 53 * hash + Objects.hashCode(this.clientID);
+        hash = 53 * hash + Objects.hashCode(this.fileC);
+        hash = 53 * hash + (this.solved ? 1 : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Interface other = (Interface) obj;
+        if (this.solved != other.solved) {
+            return false;
+        }
+        if (!Objects.equals(this.filePath, other.filePath)) {
+            return false;
+        }
+        if (!Objects.equals(this.serverFilePath, other.serverFilePath)) {
+            return false;
+        }
+        if (!Objects.equals(this.clientID, other.clientID)) {
+            return false;
+        }
+        if (!Objects.equals(this.fileC, other.fileC)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Interface{" + "filePath=" + filePath + ", serverFilePath=" + serverFilePath + ", clientID=" + clientID + ", fileC=" + fileC + ", solved=" + solved + ", jMenu1=" + jMenu1 + ", jMenu2=" + jMenu2 + ", jMenu3=" + jMenu3 + ", jMenu4=" + jMenu4 + ", jMenuBar1=" + jMenuBar1 + ", jMenuItem1=" + jMenuItem1 + ", jMenuItem2=" + jMenuItem2 + ", jMenuItem3=" + jMenuItem3 + ", jMenuItem4=" + jMenuItem4 + ", jMenuItem5=" + jMenuItem5 + ", jScrollPane1=" + jScrollPane1 + ", jTextArea1=" + jTextArea1 + '}';
+    }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;

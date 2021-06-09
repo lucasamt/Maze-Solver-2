@@ -12,6 +12,7 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Objects;
 
 /**
  *
@@ -56,4 +57,36 @@ public class PedidoLabirintos extends Comunicado {
         Labirintos resposta = (Labirintos) request[1];
         return resposta;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 79 * hash + Objects.hashCode(this.idCliente);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final PedidoLabirintos other = (PedidoLabirintos) obj;
+        if (!Objects.equals(this.idCliente, other.idCliente)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "PedidoLabirintos{" + "idCliente=" + idCliente + '}';
+    }
+    
+    
 }

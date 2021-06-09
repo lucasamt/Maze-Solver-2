@@ -6,6 +6,7 @@
 package Main;
 
 import java.io.*;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 /**
@@ -77,4 +78,31 @@ public class fileChooser {
                 
                 return allText;
         }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 53 * hash + Objects.hashCode(this.FileContent);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final fileChooser other = (fileChooser) obj;
+        if (!Objects.equals(this.FileContent, other.FileContent)) {
+            return false;
+        }
+        return true;
+    }
+        
+        
 }

@@ -5,6 +5,8 @@
  */
 package Main;
 
+import java.util.Arrays;
+
 /**
  *
  * @author Usuario
@@ -95,4 +97,36 @@ public class Maze {
 		
 		this.mazeMap[x][y] = " ";
 	}
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 59 * hash + Arrays.deepHashCode(this.mazeMap);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Maze other = (Maze) obj;
+        if (!Arrays.deepEquals(this.mazeMap, other.mazeMap)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "Maze{" + "mazeMap=" + mazeMap + '}';
+    }
+        
+        
 }
