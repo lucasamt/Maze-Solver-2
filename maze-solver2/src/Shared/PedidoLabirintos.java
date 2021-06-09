@@ -1,8 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Essa classe foi criada para auxiliar o servidor, com a função de certificar
+ * a segunrança do envio, inserção, edição e acesso as informações colocadas no 
+ * sistema a partir do id do Cliente pré definido, através do ip.
  */
+
 package Shared;
 
 import Main.RemoteConfig;
@@ -14,22 +15,41 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Objects;
 
-/**
- *
- * @author RGrupos
- */
+
 public class PedidoLabirintos extends Comunicado {
 
     private String idCliente; // vai ser o ip
-
+    
+    /**
+     * Esse método é um construtor, que define o idCliente, que é pelo ip 
+     * da pessoa, definindo o parâmetro idCliente.
+     * 
+     * @param idCliente 
+     */
     public PedidoLabirintos(String idCliente) {
         this.idCliente = idCliente;
     }
-
+    
+    /**
+     * Após definido o ip do cliente, esse método tem como funcionalidade
+     * retorna-lo.
+     * 
+     * @return idCliente
+     */
     public String getIdCliente() {
         return this.idCliente;
     }
     
+    /**
+     * Esse método de origem "Labirintos" solicita uma conexão remota, através do
+     * ip do cliente, mandando a resposta em forma de socket para o servidor,
+     * após isto o servidor retorna uma reposta, recebendo os dados e fazendo uma
+     * requisição.
+     * 
+     * @return resposta
+     * @throws IOException
+     * @throws ClassNotFoundException 
+     */
     final public Labirintos enviarDado() throws IOException, ClassNotFoundException{
         
         // Solicitar Labirintos

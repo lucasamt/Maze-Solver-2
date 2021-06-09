@@ -1,37 +1,54 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Essa classe foi criada para que as variáveis padrões do labirinto sejam
+ * pré definidas para a manipulação das informações dos labirintos.
  */
 
 package Shared;
 import java.io.Serializable;
 import java.util.Objects;
 
-/**
- *
- * @author RGrupos
- */
 public class Labirinto implements Serializable, Cloneable{
 
     private String nome;
     private String dataCriacao;
     private String dataUltimaAtualizacao;
     private String conteudo;
-
+    
+    /**
+     * Esse método têm como objetivo passar os parâmetros de nome e o conteúdo 
+     * do labirinto
+     * 
+     * @param nom
+     * @param lab 
+     */
     public Labirinto(String nom, String lab) {
         nome = nom;
         conteudo = lab;
     }
 
+    /**
+     * Esse método têm a função de editar o conteúdo do labirinto
+     * 
+     * @param lab 
+     */
     public void setConteudo(String lab) {
         conteudo = lab;
     }
 
+    /**
+     * Esse método retorna o conteúdo que está dentro do labirinto
+     * 
+     * @return conteudo 
+     */
     public String getConteudo() {
         return conteudo;
     }
     
+    /**
+     * Esse método tem uma função getter, de pegar o nome e retorná-lo
+     * 
+     * @return nome
+     */
     public String getNome(){
         return nome;
     }

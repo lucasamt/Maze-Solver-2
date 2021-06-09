@@ -1,8 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Essa classe é responsável pelos métodos que irão cuidar para que faça um
+ * pedido de salvamento para o servidor através de socket, após todos os dados 
+ * coletados irá enviar os dados.
  */
+
 package Shared;
 
 import java.io.IOException;
@@ -13,24 +14,37 @@ import java.net.Socket;
 import Main.*;
 import java.util.Objects;
 
-/**
- *
- * @author RGrupos
- */
 public class PedidoSalvamento extends Comunicado implements Serializable{
 
     private String idCliente;
     private Labirinto labirinto;
-
+    
+    /**
+     * Método que define os parâmetros para o pedido de salvamento, sendo eles
+     * o id do Cliente e o labirinto.
+     * 
+     * @param idCliente
+     * @param lab 
+     */
     public PedidoSalvamento(String idCliente, Labirinto lab) {
         this.idCliente = idCliente;
         this.labirinto = lab;
     }
 
+    /**
+     * Esse método string retorna o id do determinado cliente(ip).
+     * 
+     * @return idCliente 
+     */
     public String getIdCliente() {
         return this.idCliente;
     }
-
+    
+    /**
+     * Esse método, após a certificação do ip do cliente irá retornar o labirinto
+     * 
+     * @return labirinto 
+     */
     public Labirinto getLabirinto() {
         return this.labirinto;
     }
@@ -40,6 +54,13 @@ public class PedidoSalvamento extends Comunicado implements Serializable{
         return this.labirinto.getConteudo();
     }
     
+    /**
+     * Esse método faz uma conexão remota através do ip do cliente, após isso 
+     * realiza uma nova conexäo em socket, enviando os dados e após todo o processo
+     * irá fechar a conexão em socket.
+     * 
+     * @throws IOException 
+     */
     final public void enviarDado() throws IOException{
         RemoteConfig config = new RemoteConfig();
         Socket socket = new Socket(config.getRemote(), 7777);
