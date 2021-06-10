@@ -1,24 +1,19 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Main;
 
 import java.io.*;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-/**
- *
- * @author Usuario
- */
+
 public class fileChooser {
     private stack<String> FileContent = new stack<String>();
 
-	/*
-	 * Default Class Constructor
-	 **/
+	/**
+         * Método construtor
+         * 
+         * @param Name String - Nome do arquivo
+         * @return Void
+         */
 	public fileChooser(String Name) throws Exception {
 		BufferedReader fileReader = null;
 
@@ -35,6 +30,12 @@ public class fileChooser {
 		}
 	}
 	
+        /**
+         * Retornar o conteúdo do arquivo
+         * 
+	 * @return stack<String> - Pilha do conteúdo do arquivo
+	 */
+
 	public stack<String> getFileContent() {
 		return FileContent;
 	}
@@ -49,6 +50,11 @@ public class fileChooser {
             return val;
         }
         
+        /**
+          * Retorna dados da classe
+          * 
+	  * @return String
+	  */
         @Override
         public String toString() {
                 stack auxiliar = new stack();
@@ -78,7 +84,12 @@ public class fileChooser {
                 
                 return allText;
         }
-
+    
+    /**
+     * Retorna hashcode da classe
+     * 
+     * @return int
+     */
     @Override
     public int hashCode() {
         int hash = 7;
@@ -86,6 +97,11 @@ public class fileChooser {
         return hash;
     }
 
+    /**
+     * Retorna se uma classe é igual a outra
+     * 
+     * @return boolean
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
