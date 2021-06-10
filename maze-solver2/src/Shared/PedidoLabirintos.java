@@ -72,6 +72,7 @@ public class PedidoLabirintos extends Comunicado {
         Integer responseCode = Integer.parseInt(request[0].toString());
         System.out.println ("Code=>"+responseCode);        
         conn.close();
+        requestIn.close();
         
         
         Labirintos resposta = (Labirintos) request[1];
