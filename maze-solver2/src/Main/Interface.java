@@ -1,7 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Está é a interface principal do programa, responsävel pela maioria das funções,
+ * irá controlar ações como: criar um novo arquivo, abrir o arquivo, configuração
+ * remota, salvar o arquivo de forma remota, abrir o arquivo de forma remota,
+ * salvamento local do arquivo, resolver o labirinto e editar na própria interface o
+ * arquivo.
  */
 package Main;
 
@@ -15,10 +17,7 @@ import javax.swing.JOptionPane;
 import Shared.*;
 import java.util.Objects;
 
-/**
- *
- * @author Usuario
- */
+
 public class Interface extends javax.swing.JFrame {
 
     private String filePath = null;
@@ -28,7 +27,8 @@ public class Interface extends javax.swing.JFrame {
     private boolean solved = false;
 
     /**
-     * Creates new form Interface
+     * Método responsável pela iniciação da interface, pegando automaticamente
+     * o ip do cliente.
      */
     public Interface() {
         initComponents();
@@ -36,6 +36,14 @@ public class Interface extends javax.swing.JFrame {
         System.out.println("IP: "+clientID);
     }
     
+    /**
+     * Método responsável pela iniciação da interface, estabelecendo parâmetros como
+     * o fileName e o file, também mostra na barra de cima da interface automaticamente
+     * a quantidade de linhas do programa.
+     * 
+     * @param fileName
+     * @param file 
+     */
     public Interface(String fileName, String file) {
         initComponents();
         clientID = GetNetworkAddress.GetAddress("ip");
@@ -200,6 +208,13 @@ public class Interface extends javax.swing.JFrame {
         saveFile();
     }//GEN-LAST:event_jMenu2MouseClicked
 
+    /**
+     * Botão que tem sua função abrir um novo arquivo, quando a interface está nula
+     * automaticamente irá abrir, caso tenha alguma informação na interface irá
+     * verificar se o cliente desejar salvar ou substituir.
+     * 
+     * @param evt 
+     */
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         int answer;
         answer = JOptionPane.showConfirmDialog(this, "O arquivo que você está editando será substituido. Deseja salvar?", "Salvar", JOptionPane.YES_NO_OPTION);
@@ -212,6 +227,12 @@ public class Interface extends javax.swing.JFrame {
         solved = false;
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
+    /**
+     * Botão responsävel por abrir um arquivo em forma local, caso esteja alguma
+     * informação na interfaca irá perguntar se deseja salva-la.
+     * 
+     * @param evt 
+     */
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         if (!jTextArea1.getText().equals("")) {
             int answer;
@@ -232,6 +253,13 @@ public class Interface extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jTextArea1KeyPressed
 
+    /**
+     * Esse é a área de texto, mostrará as informações abertas do labirinto, podendo
+     * editá-las somente com os caracteres permitidos(#,'', E, S), faz a contagem das linhas
+     * do labirinto também.
+     * 
+     * @param evt 
+     */
     private void jTextArea1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextArea1KeyTyped
         Character typed = evt.getKeyChar();
         if (typed != '#' && typed != ' ' && typed != 'E' && typed != 'S') {
@@ -248,6 +276,12 @@ public class Interface extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jMenu3KeyPressed
 
+    /**
+     * Botão responsável pela resolução do labirinto, indicando caso o caminho esteja
+     * válido o caminho, caso esteja inválido irá mostrar uma mensagem de erro
+     * 
+     * @param evt 
+     */
     private void jMenu3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu3MouseClicked
         String[] lines = jTextArea1.getText().split("\n");
         stack dataLines = new stack<String>();
@@ -277,13 +311,25 @@ public class Interface extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Labirinto Inválido", "Inválido", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_jMenu3MouseClicked
-
+    
+    /**
+     * Botão que irá realizar uma nova opção remota, após clicado o cliente 
+     * será redirecionado a uma nova interface.
+     * 
+     * @param evt 
+     */
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         RemoteOption formOpt = new RemoteOption();
         formOpt.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
-
+    
+    /**
+     * Botão respónsavel a realizsar o salvamento do arquivo remotamente, pedindo o 
+     * nome do arquivo, após isso irá realizar o método de salvar arquivo remotamente
+     * 
+     * @param evt 
+     */
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         if(this.serverFilePath == null){
             do{
@@ -295,6 +341,12 @@ public class Interface extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
+    /**
+     * Botão que irá redirecionar o cliente a uma nova interface, que mostrará 
+     * uma tabela com seus arquivos salvos no banco de dados.
+     * 
+     * @param evt 
+     */
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         this.setVisible(false);
         FilesListInterface listLab = new FilesListInterface();
@@ -302,7 +354,9 @@ public class Interface extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     /**
-     * @param args the command line arguments
+     * Classe responsável por inicializar o programa e rodá-lo.
+     * 
+     * @param args 
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -336,6 +390,10 @@ public class Interface extends javax.swing.JFrame {
         });
     }
 
+    /**
+     * Método responsável por salvar o arquivo de 2 formas, seja localmente ou
+     * na opção remota.
+     */
     private void saveFile() {
         if(solved){
             JOptionPane.showMessageDialog(this, "Não é permitido salvar labirintos resolvidos", "Atenção", JOptionPane.WARNING_MESSAGE);
@@ -371,6 +429,9 @@ public class Interface extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Método responsável por abrir o arquivo selecionado localmente.
+     */
     public void openFile() {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setCurrentDirectory(new File(System.getProperty("user.home") + "/Desktop"));
@@ -391,6 +452,11 @@ public class Interface extends javax.swing.JFrame {
         }
     }
 
+    /**
+     * Método responsável para gravar no arquivo uma escrita.
+     * 
+     * @param name 
+     */
     public void writeFile(String name) {
         try {
             FileWriter arquivo;
@@ -406,6 +472,11 @@ public class Interface extends javax.swing.JFrame {
         }
     }
     
+    /**
+     * Método responsável por salvar o arquivo de forma remota, primeiro irá
+     * pegar as informações necessárias, após isso irá enviar ao servidor as 
+     * requisições.
+     */
     public void saveFileRemote(){
         // Pegar arquivo
         String textoDoArquivo = jTextArea1.getText().split("\n").length + "\n" + jTextArea1.getText();

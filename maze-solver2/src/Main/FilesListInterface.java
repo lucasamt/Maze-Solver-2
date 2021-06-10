@@ -1,7 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Interface que tem como sua função abrir uma nova aba, que irá através de uma
+ * requisição ao servidor e o ip do cliente mostrar uma tabela com os labirintos
+ * cadastrados no banco de dados,conseguindo abri-los novamente.
  */
 package Main;
 
@@ -17,7 +17,7 @@ import javax.swing.table.DefaultTableModel;
 public class FilesListInterface extends javax.swing.JFrame {
 
     /**
-     * Creates new form FilesListInterface
+     * Método que irá abrir e carregar na interface a tabela.
      */
     public FilesListInterface() {
         initComponents();
@@ -28,6 +28,13 @@ public class FilesListInterface extends javax.swing.JFrame {
         }
     }
     
+    /**
+     * Método responsável por carregar a tabela, primeiro irá pegar o ip do cliente
+     * após isto irá fazer uma solicitação ao servidor pedindo a tabela com as
+     * informações do labirinto do cliente.
+     * 
+     * @throws ClassNotFoundException 
+     */
     public void loadTable() throws ClassNotFoundException{
         String clientID = GetNetworkAddress.GetAddress("ip");
         PedidoLabirintos solicitar = new PedidoLabirintos(clientID);
@@ -138,6 +145,12 @@ public class FilesListInterface extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     * Este é um botão que irá após o arquivo selecionado abrir o labirinto
+     * na interface.
+     * 
+     * @param evt 
+     */
     private void jMenu1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenu1MouseClicked
         int selected = jTable1.getSelectedRow();
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
