@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Main;
 
 import java.util.Arrays;
@@ -10,38 +5,31 @@ import java.util.Arrays;
 /**
  * Classe que armazena qualquer tipo de pilha devido ao método Stack <Type>;
  * Ele também define um construtor padrão para uma pilha de qualquer tamanho e com o topo sempre sendo -1;
- * A pilha deve ser maior que zero, com os métodos push (Adicionar um item da pilha), pop (remover um item da pilha) 
- * e top (Retorna o topo da pilha), verifica se a pilha está vazia e finalmente redimensiona a pilha que causa isso 
+ * A pilha deve ser maior que zero, com os métodos push (Adicionar um item da pilha), pop (remover um item da pilha)
+ * e top (Retorna o topo da pilha), verifica se a pilha está vazia e finalmente redimensiona a pilha que causa isso
  * aumenta de tamanho de acordo com a necessidade do usuário.
- *
- * @param   top                 Declara uma variável privada de todo o tipo que deve ser sempre a parte superior;
- * @param   size		Demonstra o tamanho da pilha;
- * @param   value		Demonstra os valores que estão na pilha;
- * @param   factor		Demonstra o valor máximo a ser alocado na pilha;
- * @param   getTopIndex		Leia o topo da pilha e volte ao índice;
- * @return  value 		Retorna os valores que estão na pilha;
- * @return  top == -1           Returns whether the stack is empty or not, after checking if the top is -1;
- * @return  elements[top]	Returns the element at the top of the stack;
- * @return  elements[value]	Returns the elements at the values of the stack;
- * @return  top                 Returns the top of the stack after it has been resized;
+ * 
+ * @param <type> 
  */
 
 public class stack<type> {
     private Object elements[];
 	private int top;
 
-	/*
-	 * Default Class Constructor
-	 **/
+	/**
+         * Construtor de classe padrão
+         */
 	public stack() {
 		int size = 10;
 		elements = new Object[size];
 		top = -1;
 	}
 
-	/*
-	 * Class Constructor with size
-	 **/
+	/**
+         * Construtor de classe com tamanho
+         * 
+         * @param size
+         */
 	public stack(int size) throws Exception {
 		if (size <= 0)
 			throw new IllegalArgumentException("Constructor size must be greater than 0");
@@ -50,9 +38,11 @@ public class stack<type> {
 		top = -1;
 	}
 
-	/*
-	 * Method that pushes a value to the element
-	 **/
+	/**
+         * Método que envia um valor para o elemento
+         * 
+         * @param value 
+         */
 	public void push(type value) {
 		if ((top + 1) >= elements.length)
 			autoSize(2); // Increases the element size to double
@@ -60,9 +50,11 @@ public class stack<type> {
 		elements[top] = value;
 	}
 
-	/*
-	 * Method that removes the last value from element
-	 **/
+	/**
+         * Método que remove o último valor do elemento
+         * 
+         * @return value
+         */
 	public type pop() throws Exception {
 		if (isEmpty())
 			throw new IllegalStateException("There isn't elements to pop");
@@ -73,22 +65,32 @@ public class stack<type> {
 		return (type) value;
 	}
 
-	/*
-	 * Method that checks if it is empty
-	 **/
+	/**
+         * Método que verifica se está vazio
+         * 
+         * @return top
+         */
 	public boolean isEmpty() {
 		return top == -1;
 	}
 
-	/*
-	 * Method that gets top's element
-	 **/
+	/**
+         * Método que obtém o elemento top
+         * 
+         * @return elements[top]
+         */
 	public type getTop() throws Exception {
 		if (isEmpty())
 			throw new IllegalStateException("There isn't elements to get");
 		return (type) elements[top];
 	}
 
+        /**
+         * Método que verifica se o elemento top esta vazio e retorna mensagem de valor ilegal
+         * 
+         * @param value
+         * @return elements[value]
+         */
 	public type getTop(int value) throws Exception {
 		if (isEmpty())
 			throw new IllegalStateException("There isn't elements to get");
@@ -98,10 +100,11 @@ public class stack<type> {
 		return (type) elements[value];
 	}
 
-	/*
-	 * Method that resizes the Stack
-	 **/
-
+	/**
+         * Método que redimensiona a pilha
+         * 
+         * @param factor 
+         */
 	public void autoSize(float factor) {
 		Object[] newElement = new Object[Math.round(elements.length * factor)];
 
@@ -111,10 +114,20 @@ public class stack<type> {
 		elements = newElement;
 	}
 	
+        /**
+         * Obtém o topo da pilha
+         * 
+         * @return top
+         */
 	public int getTopIndex() {
 		return top;
 	}
 
+    /**
+     * Obtém o hashcode
+     * 
+     * @return result;
+     */
     @Override
     public int hashCode() {
         int hash = 3;
@@ -123,6 +136,12 @@ public class stack<type> {
         return hash;
     }
 
+    /**
+     * Verifica se outra classe é igual a esta
+     * 
+     * @param obj
+     * @return true
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -143,7 +162,13 @@ public class stack<type> {
         }
         return true;
     }
+    
 
+    /** 
+     * Returns class data in string
+     * 
+     * @return String
+     */
     @Override
     public String toString() {
         return "stack{" + "elements=" + elements + ", top=" + top + '}';
