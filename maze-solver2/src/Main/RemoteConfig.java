@@ -1,7 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Classe responsável pela configuração remota do programa.
  */
 package Main;
 
@@ -11,11 +9,13 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author RGrupos
- */
+
 public class RemoteConfig {
+    
+    /**
+     * Método responsável em pegar a configuração da 
+     * @return remoteHost 
+     */
     public String getRemote(){
         String remoteHost;
         BufferedReader fileReader = null;
@@ -28,6 +28,12 @@ public class RemoteConfig {
         return remoteHost;
     }
     
+    /**
+     * Método responsável pela edição da configuração remota.
+     * 
+     * @param text
+     * @return 
+     */
     public Boolean setRemote(String text){
             try{
                 FileWriter arquivo;
@@ -38,7 +44,5 @@ public class RemoteConfig {
             }catch(Exception ex){
                 return false;
             }
-    }
-    
-    
+    }   
 }

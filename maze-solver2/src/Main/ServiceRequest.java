@@ -1,7 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Classe que tem a função de fazer as requisições ao servidor, abrindo e fechando
+ * sockets.
  */
 package Main;
 
@@ -10,31 +9,57 @@ import java.net.Socket;
 import java.io.*;
 import java.util.Objects;
 
-/**
- *
- * @author RGrupos
- */
 public class ServiceRequest {
     private String source;
     private Integer requestFlag = null;
     private String data = null;
     
+    /**
+     * Método que denomina a função string source.
+     * 
+     * @param source 
+     */
     public ServiceRequest(String source){
         this.source = source;
     }
+    
+    /**
+     * Método responsável pela requisição de pegar a lista, nomeado com o Flag
+     * de 100.
+     */
     public void setGetList(){
         this.requestFlag = 100;
     }
+    
+    /**
+     * Método responsável pela requisição de salvar o arquivo, nomeada com o Flag
+     * de 200.
+     * 
+     * @param file 
+     */
     public void setSaveFile(String file){
         this.requestFlag = 200;
         this.data = file;
     }
     
+    /**
+     * Método reponsável por pegar a requisição do objeto, retornando 
+     * o source, requestFlag e os dados.
+     * 
+     * @return 
+     */
     public Object[] getRequestObject(){
         Object[] request = {source, requestFlag, data};
         return request;
     }
     
+    /**
+     * Método booleano que quando retorna verdadeiro irá fazer uma nova configuração remota
+     * abrindo um socket com uma requisição ao servidor, enviando os objetos,
+     * após as operações o socket fechará, caso contrário retorna falso.
+     * 
+     * @return 
+     */
     public Boolean request(){
         try{
             // need host and port, we want to connect to the ServerSocket at port 7777

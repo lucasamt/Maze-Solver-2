@@ -1,10 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Classe necessária para o funcionamento do servidor e ao banco, sua função é
+ * buscar os endereços IP dos clientes através de endereços MAC, retornando o IP
+ * do cliente para realizar as operações remotas.
  */
 
-// Código encontrado no StackOverflow https://stackoverflow.com/a/32170974
+//Código encontrado no StackOverflow https://stackoverflow.com/a/32170974
 
 package Main;
 
@@ -19,6 +19,14 @@ import java.util.Enumeration;
  * @author RGrupos
  */
 public class GetNetworkAddress {
+    
+    /**
+     * Método responsável por encontrar os endereços de ip e MAC
+     * do cliente, retornando os endereços.
+     * 
+     * @param addressType
+     * @return address
+     */
     public static String GetAddress(String addressType) {
         String address = "";
         InetAddress lanIp = null;
@@ -81,6 +89,12 @@ public class GetNetworkAddress {
 
     }
 
+    /**
+     * Método responsável de encontrar o endereço MAC do cliente e retorná-lo.
+     * 
+     * @param ip
+     * @return address
+     */
     private static String getMacAddress(InetAddress ip) {
         String address = null;
         try {
@@ -103,6 +117,12 @@ public class GetNetworkAddress {
         return address;
     }
 
+    /**
+     * Método booleano responsável de encontrar bytes MAC válidos e inválidos.
+     * 
+     * @param mac
+     * @return 
+     */
     private static boolean isVMMac(byte[] mac) {
         if(null == mac) return false;
         byte invalidMacs[][] = {
