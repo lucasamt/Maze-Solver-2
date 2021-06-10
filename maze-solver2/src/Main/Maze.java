@@ -1,33 +1,24 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * 
+ * A Classe  <b>Maze<b> tem por função criar um mapa de labirinto, 
+ * que define a quantidade e o tipo de linha e colunas, 
+ * demonstrando se o Labirinto é valido ou não.
+ * 
  */
 package Main;
 
 import java.util.Arrays;
 
-/**
- *
- * @author Usuario
- */
-
 public class Maze {
     public String[][] mazeMap;
     
-
-/**
- * Método que define o número de linhas e colunas no labirinto,
- * e que pode ser retornado em um labirinto inválido ou inexistente.
- * 
- * @param numberLines       Define o número de linhas no labirinto.
- * @param numberColumns	    Define o número de colunas no labirinto.
- * @param lines             Define as linhas do labirinto que devem ser = 0 e ++.
- * @param hasEntry          Diz se tem entrada ou nao para Bob andar.
- * @param hasExit           Diz se tem saida ou nao para Bob andar.
- * @return		    void
- */	
-	
+	/**
+         * Método que define o número de linhas e colunas no labirinto, 
+         * definindo o padrão para o tamanho do labirinto e se o labirinto nao 
+         * adenter esse padrão pode retornar como labirinto inválido ou inexistente.
+         * 
+         * @param File
+         */
 	public Maze(stack<String> File) throws Exception {
 		int numberLines; 
 		int numberColumns;
@@ -76,11 +67,21 @@ public class Maze {
 		*/
 		
 	}
-	
+        
+	/**
+         * Método que retorna o mapa do labirinto criado  
+         * 
+         * @return mazeMap
+         */
 	public String[][] getMazeMap(){
 		return this.mazeMap;
 	}
 	
+        /**
+         * Método que printa no labirinto os rastros deixados por Bob ate chegar na saida  
+         * 
+         * @param coordinate 
+         */
 	public void footPrint(Coordinates coordinate) {
 		int x = coordinate.getX();
 		int y = coordinate.getY();
@@ -96,6 +97,11 @@ public class Maze {
 		this.mazeMap[x][y] = "*";
 	}
 	
+        /**
+         * Método que apaga no labirinto os "rastros" deixados por Bod, que nao chegam até a saída.
+         * 
+         * @param coordinate 
+         */
 	public void eraseFootPrint(Coordinates coordinate) {
 		int x = coordinate.getX();
 		int y = coordinate.getY();
